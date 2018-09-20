@@ -1,0 +1,22 @@
+src:
+  build:
+    target: None
+    configuration: None
+
+notests *default:
+  build:
+    target: Vostok.Commons.Time.sln
+    configuration: NoTests
+    tool:
+      name: dotnet
+
+  install:
+    - Vostok.Commons.Time/bin/Release/netstandard2.0/Vostok.Commons.Time.dll
+
+  deps:
+    - vostok.devtools
+
+full-build > notests:
+  build:
+    target: Vostok.Commons.Time.sln
+    configuration: Release
