@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Threading;
 using FluentAssertions;
-using FluentAssertions.Extensions;
 using NUnit.Framework;
 
 namespace Vostok.Commons.Time.Tests
