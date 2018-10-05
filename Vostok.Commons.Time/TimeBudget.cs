@@ -15,7 +15,7 @@ namespace Vostok.Commons.Time
 
         private readonly Stopwatch stopwatch;
 
-        private TimeBudget(TimeSpan total, TimeSpan precision)
+        protected TimeBudget(TimeSpan total, TimeSpan precision)
         {
             if (total < TimeSpan.Zero)
                 throw new ArgumentOutOfRangeException(nameof(total), $"Negative time budget value: '{total}'");
@@ -67,5 +67,7 @@ namespace Vostok.Commons.Time
 
             return needed <= remaining ? needed : remaining;
         }
+
+        protected void Start() => stopwatch.Start();
     }
 }
