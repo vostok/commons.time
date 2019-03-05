@@ -56,5 +56,10 @@ namespace Vostok.Commons.Time
         /// </summary>
         public static DateTime FromUnixTimeUtcTicks(long ticks)
             => new DateTime(UnixEpoch.Ticks + ticks, DateTimeKind.Utc);
+        /// <summary>
+        /// Returns a UTC <see cref="DateTime"/> expressed by given amount of <paramref name="milliseconds"/> elapsed since <see cref="UnixEpoch"/>.
+        /// </summary>
+        public static DateTime FromUnixTimeMilliseconds(long milliseconds)
+            => UnixEpoch + TimeSpan.FromMilliseconds(milliseconds);
     }
 }
