@@ -26,7 +26,7 @@ namespace Vostok.Commons.Time
             if (time.TotalMilliseconds >= 1)
                 return time.TotalMilliseconds.ToString("0.###", CultureInfo.InvariantCulture) + (useShortUnitNames ? "ms" : " milliseconds");
 
-            var totalMicroseconds = (double) time.Ticks / TicksPerMicrosecond;
+            var totalMicroseconds = (double)time.Ticks / TicksPerMicrosecond;
             if (totalMicroseconds >= 1)
                 return totalMicroseconds.ToString("0.###", CultureInfo.InvariantCulture) + (useShortUnitNames ? "us" : " microseconds");
 

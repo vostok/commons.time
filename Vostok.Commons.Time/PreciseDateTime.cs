@@ -5,6 +5,8 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using JetBrains.Annotations;
 
+// ReSharper disable PossibleNullReferenceException
+
 namespace Vostok.Commons.Time
 {
     /// <summary>
@@ -121,7 +123,7 @@ namespace Vostok.Commons.Time
             {
                 stopwatchTicks *= TickFrequency;
 
-                return unchecked((long) stopwatchTicks);
+                return unchecked((long)stopwatchTicks);
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -132,14 +134,14 @@ namespace Vostok.Commons.Time
 
             private class State
             {
+                public readonly long BaseDateTimeTicks;
+                public readonly long BaseStopwatchTicks;
+
                 public State(long baseDateTimeTicks, long baseStopwatchTicks)
                 {
                     BaseDateTimeTicks = baseDateTimeTicks;
                     BaseStopwatchTicks = baseStopwatchTicks;
                 }
-
-                public readonly long BaseDateTimeTicks;
-                public readonly long BaseStopwatchTicks;
             }
         }
 
