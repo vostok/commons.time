@@ -53,13 +53,13 @@ namespace Vostok.Commons.Time
         {
             get
             {
-                var remaining = Total - Elapsed - Precision;
+                var remaining = Total - Elapsed;
 
                 return remaining >= TimeSpan.Zero ? remaining : TimeSpan.Zero;
             }
         }
 
-        public bool HasExpired => Remaining == TimeSpan.Zero;
+        public bool HasExpired => Total - Elapsed - Precision <= TimeSpan.Zero;
 
         public TimeSpan TryAcquire(TimeSpan needed)
         {
