@@ -27,7 +27,8 @@ namespace Vostok.Commons.Time.Tests
         [Explicit]
         public void Benchmark_UtcNow_against_DateTimeOffset()
         {
-            BenchmarkRunnerCore.Run(BenchmarkConverter.TypeToBenchmarks(typeof(PreciseDateTimeBenchmark_UtcNow)),
+            BenchmarkRunnerCore.Run(
+                BenchmarkConverter.TypeToBenchmarks(typeof(PreciseDateTimeBenchmark_UtcNow)),
                 job => new InProcessToolchain(false));
         }
 
@@ -51,7 +52,8 @@ namespace Vostok.Commons.Time.Tests
         [Explicit]
         public void Benchmark_Now_against_DateTimeOffset()
         {
-            BenchmarkRunnerCore.Run(BenchmarkConverter.TypeToBenchmarks(typeof(PreciseDateTimeBenchmark_Now)),
+            BenchmarkRunnerCore.Run(
+                BenchmarkConverter.TypeToBenchmarks(typeof(PreciseDateTimeBenchmark_Now)),
                 job => new InProcessToolchain(false));
         }
     }
