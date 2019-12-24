@@ -40,5 +40,11 @@ namespace Vostok.Commons.Time
         {
             return Max(time1, Max(time2, time3));
         }
+
+        /// <summary>
+        /// Returns <paramref name="baseValue"/> reduced by the minimum of <paramref name="absoluteValueToCut"/> and <paramref name="relativeValueToCut"/> multiplied by <paramref name="baseValue"/>.
+        /// </summary>
+        public static TimeSpan Cut(this TimeSpan baseValue, TimeSpan absoluteValueToCut, double relativeValueToCut)
+            => baseValue - Min(absoluteValueToCut, baseValue.Multiply(relativeValueToCut));
     }
 }
