@@ -13,6 +13,7 @@ namespace Vostok.Commons.Time
         private readonly Action workerRoutine;
         private readonly Action<Exception> errorHandler;
         private readonly AutoResetEvent stopEvent;
+        private readonly object startStopSync = new object();
 
         private volatile int state;
         private volatile Thread workerThread;
@@ -69,38 +70,44 @@ namespace Vostok.Commons.Time
 
         public void Start()
         {
-            if (Interlocked.CompareExchange(ref state, StateRunning, StateStopped) != StateStopped)
-                return;
-
-            workerThread = new Thread(
-                _ =>
-                {
-                    try
-                    {
-                        workerRoutine();
-                    }
-                    catch (ThreadAbortException)
-                    {
-                    }
-                })
+            lock (startStopSync)
             {
-                IsBackground = true
-            };
+                if (Interlocked.CompareExchange(ref state, StateRunning, StateStopped) != StateStopped)
+                    return;
 
-            workerThread.Start();
+                workerThread = new Thread(
+                    _ =>
+                    {
+                        try
+                        {
+                            workerRoutine();
+                        }
+                        catch (ThreadAbortException)
+                        {
+                        }
+                    })
+                {
+                    IsBackground = true
+                };
+
+                workerThread.Start();
+            }
         }
 
         public void Stop()
         {
-            if (Interlocked.CompareExchange(ref state, StateStopped, StateRunning) != StateRunning)
-                return;
+            lock (startStopSync)
+            {
+                if (Interlocked.CompareExchange(ref state, StateStopped, StateRunning) != StateRunning)
+                    return;
 
-            stopEvent.Set();
+                stopEvent.Set();
 
-            workerThread?.Join();
-            workerThread = null;
+                workerThread?.Join();
+                workerThread = null;
 
-            stopEvent.Reset();
+                stopEvent.Reset();
+            }
         }
     }
 }
