@@ -29,6 +29,9 @@ namespace Vostok.Commons.Time
             stopwatch = new Stopwatch();
         }
 
+        public static TimeBudget CreateNew(TimeSpan budget)
+            => new TimeBudget(budget, DefaultPrecision);
+
         public static TimeBudget StartNew(TimeSpan budget)
         {
             return StartNew(budget, DefaultPrecision);
