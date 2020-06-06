@@ -71,6 +71,6 @@ namespace Vostok.Commons.Time
             return needed <= remaining ? needed : remaining;
         }
 
-        protected void Start() => stopwatch.Start();
+        public void Start() => stopwatch.Start();
     }
 }
