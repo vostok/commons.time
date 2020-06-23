@@ -11,6 +11,9 @@ namespace Vostok.Commons.Time
 
         public static string ToPrettyString(this TimeSpan time, bool useShortUnitNames = false)
         {
+            if (time == TimeSpan.MaxValue)
+                return "infinite";
+
             if (time.TotalDays >= 1)
                 return time.TotalDays.ToString("0.###", CultureInfo.InvariantCulture) + (useShortUnitNames ? "d" : " days");
 
