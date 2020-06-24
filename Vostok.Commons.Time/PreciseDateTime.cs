@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 // ReSharper disable PossibleNullReferenceException
@@ -23,15 +24,26 @@ namespace Vostok.Commons.Time
     internal static class PreciseDateTime
     {
         private static readonly Func<DateTimeOffset> utcNowProvider;
+        private static volatile OffsetHolder offsetFromUtcHolder;
 
         static PreciseDateTime()
         {
             utcNowProvider = SelectTimestampProvider();
+
+            UpdateOffsetFromUtc();
         }
 
         public static DateTimeOffset UtcNow => utcNowProvider();
 
-        public static DateTimeOffset Now => utcNowProvider().ToLocalTime();
+        public static DateTimeOffset Now
+        {
+            get
+            {
+                var offsetFromUtc = offsetFromUtcHolder.Value;
+
+                return new DateTimeOffset(utcNowProvider().DateTime + offsetFromUtc, offsetFromUtc);
+            }
+        }
 
         private static Func<DateTimeOffset> SelectTimestampProvider()
         {
@@ -42,6 +54,13 @@ namespace Vostok.Commons.Time
                 return StopwatchProvider.Obtain;
 
             return () => DateTimeOffset.UtcNow;
+        }
+
+        private static void UpdateOffsetFromUtc()
+        {
+            Interlocked.Exchange(ref offsetFromUtcHolder, new OffsetHolder(DateTimeOffset.Now.Offset));
+
+            Task.Delay(TimeSpan.FromSeconds(30)).ContinueWith(_ => UpdateOffsetFromUtc());
         }
 
         #region WinApiProvider
@@ -144,6 +163,18 @@ namespace Vostok.Commons.Time
                 }
             }
         }
+
+        #endregion
+
+        #region OffsetHolder
+
+        private class OffsetHolder
+        {
+            public OffsetHolder(TimeSpan value)
+                => Value = value;
+
+            public readonly TimeSpan Value;
+        } 
 
         #endregion
     }
