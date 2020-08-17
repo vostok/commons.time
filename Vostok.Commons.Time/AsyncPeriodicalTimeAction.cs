@@ -99,7 +99,7 @@ namespace Vostok.Commons.Time
         private async Task WorkerRouting(CancellationToken token)
         {
             if (delayFirstIteration)
-                await DelaySafe(period(), token);
+                await DelaySafe(period(), token).ConfigureAwait(false);
 
             while (!token.IsCancellationRequested)
             {
@@ -107,7 +107,7 @@ namespace Vostok.Commons.Time
 
                 try
                 {
-                    await action(token, budget.Remaining);
+                    await action(token, budget.Remaining).ConfigureAwait(false);
                 }
                 catch (OperationCanceledException e) when (e.CancellationToken == token && token.IsCancellationRequested)
                 {
@@ -119,7 +119,7 @@ namespace Vostok.Commons.Time
                 }
 
                 var remainingBudget = budget.Remaining;
-                await DelaySafe(remainingBudget, token);
+                await DelaySafe(remainingBudget, token).ConfigureAwait(false);
             }
         }
     }
