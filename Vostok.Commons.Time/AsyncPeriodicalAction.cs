@@ -5,24 +5,19 @@ using JetBrains.Annotations;
 
 namespace Vostok.Commons.Time
 {
-    /// <summary>
-    /// Periodical action executed on thread pool
-    /// </summary>
     [PublicAPI]
-    internal class AsyncPeriodicalTimeAction
+    internal class AsyncPeriodicalAction
     {
         private readonly Func<CancellationToken, TimeSpan, Task> action;
-        [NotNull]
         private readonly Action<Exception> errorHandler;
-        [NotNull]
         private readonly Func<TimeSpan> period;
         private readonly bool delayFirstIteration;
-        private readonly object syncLock = new object();
+        private readonly object startStopSync = new object();
 
         private volatile Task workerTask;
         private volatile CancellationTokenSource cancellationSource;
 
-        public AsyncPeriodicalTimeAction(
+        public AsyncPeriodicalAction(
             [NotNull] Func<Task> action,
             [NotNull] Action<Exception> errorHandler,
             [NotNull] Func<TimeSpan> period,
@@ -31,7 +26,7 @@ namespace Vostok.Commons.Time
         {
         }
 
-        public AsyncPeriodicalTimeAction(
+        public AsyncPeriodicalAction(
             [NotNull] Func<CancellationToken, TimeSpan, Task> action,
             [NotNull] Action<Exception> errorHandler,
             [NotNull] Func<TimeSpan> period,
@@ -47,7 +42,7 @@ namespace Vostok.Commons.Time
         {
             get
             {
-                lock (syncLock)
+                lock (startStopSync)
                 {
                     return workerTask != null;
                 }
@@ -56,19 +51,19 @@ namespace Vostok.Commons.Time
 
         public void Start()
         {
-            lock (syncLock)
+            lock (startStopSync)
             {
                 if (workerTask != null)
                     return;
 
                 cancellationSource = new CancellationTokenSource();
-                workerTask = Task.Run(() => WorkerRouting(cancellationSource.Token));
+                workerTask = Task.Run(() => WorkerRoutine(cancellationSource.Token));
             }
         }
 
         public void Stop()
         {
-            lock (syncLock)
+            lock (startStopSync)
             {
                 if (workerTask == null)
                     return;
@@ -92,11 +87,10 @@ namespace Vostok.Commons.Time
             }
             catch (OperationCanceledException)
             {
-                // OK
             }
         }
 
-        private async Task WorkerRouting(CancellationToken token)
+        private async Task WorkerRoutine(CancellationToken token)
         {
             if (delayFirstIteration)
                 await DelaySafe(period(), token).ConfigureAwait(false);
@@ -118,8 +112,7 @@ namespace Vostok.Commons.Time
                     errorHandler(error);
                 }
 
-                var remainingBudget = budget.Remaining;
-                await DelaySafe(remainingBudget, token).ConfigureAwait(false);
+                await DelaySafe(budget.Remaining, token).ConfigureAwait(false);
             }
         }
     }

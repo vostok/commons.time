@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace Vostok.Commons.Time.Tests
 {
     [TestFixture]
-    internal class AsyncPeriodicalTimeAction_Tests
+    internal class AsyncPeriodicalAction_Tests
     {
         private int errors;
         private Action<Exception> errorHandler;
@@ -30,7 +30,7 @@ namespace Vostok.Commons.Time.Tests
                 return Task.FromException(new Exception());
             }
 
-            var periodicalAction = new AsyncPeriodicalTimeAction(
+            var periodicalAction = new AsyncPeriodicalAction(
                 Action,
                 errorHandler,
                 () => TimeSpan.Zero);
@@ -58,7 +58,7 @@ namespace Vostok.Commons.Time.Tests
                 throw new OperationCanceledException(new CancellationToken(true));
             }
 
-            var periodicalAction = new AsyncPeriodicalTimeAction(
+            var periodicalAction = new AsyncPeriodicalAction(
                 Action,
                 errorHandler,
                 () => TimeSpan.Zero);
@@ -87,9 +87,7 @@ namespace Vostok.Commons.Time.Tests
                 return TimeSpan.FromSeconds(100500);
             }
 
-            ;
-
-            var periodicalAction = new AsyncPeriodicalTimeAction(
+            var periodicalAction = new AsyncPeriodicalAction(
                 () =>
                 {
                     ++calls;
@@ -124,9 +122,7 @@ namespace Vostok.Commons.Time.Tests
                 return TimeSpan.FromSeconds(100500);
             }
 
-            ;
-
-            var periodicalAction = new AsyncPeriodicalTimeAction(
+            var periodicalAction = new AsyncPeriodicalAction(
                 () =>
                 {
                     ++calls;
@@ -167,7 +163,7 @@ namespace Vostok.Commons.Time.Tests
                 return Task.CompletedTask;
             }
 
-            var periodicalAction = new AsyncPeriodicalTimeAction(
+            var periodicalAction = new AsyncPeriodicalAction(
                 Action,
                 errorHandler,
                 () => TimeSpan.Zero);
