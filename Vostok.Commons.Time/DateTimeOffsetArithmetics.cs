@@ -11,7 +11,7 @@ namespace Vostok.Commons.Time
             return time1 <= time2 ? time1 : time2;
         }
         
-        public static TimeSpan Max(TimeSpan time1, TimeSpan time2)
+        public static DateTimeOffset Max(DateTimeOffset time1, DateTimeOffset time2)
         {
             return time1 >= time2 ? time1 : time2;
         }
