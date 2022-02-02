@@ -10,7 +10,7 @@ namespace Vostok.Commons.Time
         {
             return time1 <= time2 ? time1 : time2;
         }
-        
+
         public static DateTime Max(DateTime time1, DateTime time2)
         {
             return time1 >= time2 ? time1 : time2;

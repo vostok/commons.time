@@ -170,11 +170,11 @@ namespace Vostok.Commons.Time
 
         private class OffsetHolder
         {
+            public readonly TimeSpan Value;
+
             public OffsetHolder(TimeSpan value)
                 => Value = value;
-
-            public readonly TimeSpan Value;
-        } 
+        }
 
         #endregion
     }

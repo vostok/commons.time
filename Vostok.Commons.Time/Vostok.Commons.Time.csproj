@@ -1,22 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\vostok.devtools\library-common-props\Main-Project.props" />
-  <Import Project="..\..\vostok.devtools\git-commit-to-assembly-title\Vostok.Tools.GitCommit2AssemblyTitle.props" />
-  <Import Project="..\..\vostok.devtools\publicize.roslyn\Vostok.Tools.Publicize.Roslyn.props" Condition="'$(Configuration)'=='Release'" />
-  <PropertyGroup>
-    <Configurations>Debug;Release</Configurations>
-  </PropertyGroup>
-  <PropertyGroup>
-    <VersionPrefix>0.1.3</VersionPrefix>
-  </PropertyGroup>
-  <PropertyGroup>
-    <Title>TODO</Title>
-    <Description>TODO</Description>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PackageProjectUrl>https://github.com/vostok/commons.time</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/vostok/commons.time/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageTags>vostok</PackageTags>
-    <RepositoryUrl>https://github.com/vostok/commons.time</RepositoryUrl>
-  </PropertyGroup>
+    <Import Project="..\..\vostok.devtools\library-common-props\Main-Project.props"/>
+    <Import Project="..\..\vostok.devtools\git-commit-to-assembly-title\Vostok.Tools.GitCommit2AssemblyTitle.props"/>
+    <Import Project="..\..\vostok.devtools\publicize.roslyn\Vostok.Tools.Publicize.Roslyn.props" Condition="'$(Configuration)'=='Release'"/>
+    <PropertyGroup>
+        <Configurations>Debug;Release</Configurations>
+    </PropertyGroup>
+    <PropertyGroup>
+        <VersionPrefix>0.1.3</VersionPrefix>
+    </PropertyGroup>
+    <PropertyGroup>
+        <Title>TODO</Title>
+        <Description>TODO</Description>
+    </PropertyGroup>
+    <PropertyGroup>
+        <PackageProjectUrl>https://github.com/vostok/commons.time</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/vostok/commons.time/blob/master/LICENSE</PackageLicenseUrl>
+        <PackageTags>vostok</PackageTags>
+        <RepositoryUrl>https://github.com/vostok/commons.time</RepositoryUrl>
+    </PropertyGroup>
 </Project>

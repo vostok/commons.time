@@ -29,23 +29,6 @@ namespace Vostok.Commons.Time
             stopwatch = new Stopwatch();
         }
 
-        public static TimeBudget CreateNew(TimeSpan budget)
-            => new TimeBudget(budget, DefaultPrecision);
-
-        public static TimeBudget StartNew(TimeSpan budget)
-        {
-            return StartNew(budget, DefaultPrecision);
-        }
-
-        public static TimeBudget StartNew(TimeSpan budget, TimeSpan precision)
-        {
-            var result = new TimeBudget(budget, precision);
-
-            result.stopwatch.Start();
-
-            return result;
-        }
-
         public TimeSpan Total { get; }
 
         public TimeSpan Precision { get; }
@@ -63,6 +46,23 @@ namespace Vostok.Commons.Time
         }
 
         public bool HasExpired => Total - Elapsed - Precision <= TimeSpan.Zero;
+
+        public static TimeBudget CreateNew(TimeSpan budget)
+            => new TimeBudget(budget, DefaultPrecision);
+
+        public static TimeBudget StartNew(TimeSpan budget)
+        {
+            return StartNew(budget, DefaultPrecision);
+        }
+
+        public static TimeBudget StartNew(TimeSpan budget, TimeSpan precision)
+        {
+            var result = new TimeBudget(budget, precision);
+
+            result.stopwatch.Start();
+
+            return result;
+        }
 
         public TimeSpan TryAcquire(TimeSpan needed)
         {
