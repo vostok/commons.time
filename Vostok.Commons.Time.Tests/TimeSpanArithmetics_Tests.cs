@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace Vostok.Commons.Time.Tests
@@ -64,6 +65,30 @@ namespace Vostok.Commons.Time.Tests
             TimeSpanArithmetics.Max(1.Seconds(), 2.Seconds(), 3.Seconds()).Should().Be(3.Seconds());
             TimeSpanArithmetics.Max(3.Seconds(), 1.Seconds(), 2.Seconds()).Should().Be(3.Seconds());
             TimeSpanArithmetics.Max(2.Seconds(), 3.Seconds(), 1.Seconds()).Should().Be(3.Seconds());
+        }
+
+        [Test]
+        public void Clamp_should_return_value_when_in_segment()
+        {
+            1.Seconds().Clamp(0.Seconds(), 2.Seconds()).Should().Be(1.Seconds());
+        }
+
+        [Test]
+        public void Clamp_should_return_min_when_time_less_than_min()
+        {
+            1.Seconds().Clamp(2.Seconds(), 3.Seconds()).Should().Be(2.Seconds());
+        }
+
+        [Test]
+        public void Clamp_should_return_max_when_time_greater_than_max()
+        {
+            3.Seconds().Clamp(0.Seconds(), 1.Seconds()).Should().Be(1.Seconds());
+        }
+
+        [Test]
+        public void Clamp_should_throw_argument_exception_when_max_less_than_min()
+        {
+            Assert.Throws<ArgumentException>(() => 1.Seconds().Clamp(3.Seconds(), 1.Seconds()));
         }
     }
 }
