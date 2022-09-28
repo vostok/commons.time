@@ -41,6 +41,17 @@ namespace Vostok.Commons.Time
             return Max(time1, Max(time2, time3));
         }
 
+        /// <param name="min">Minimum time border</param>
+        /// <param name="max">Maximum time border</param>
+        /// <returns>If <paramref name="time"/> in [<paramref name="min"/>, <paramref name="max"/>] returns time, otherwise returns closest to this segment value (<paramref name="min"/> or <paramref name="max"/>)</returns>
+        /// <exception cref="ArgumentException">throws if <paramref name="min"/> > <paramref name="max"/></exception>
+        public static TimeSpan Clamp(this TimeSpan time, TimeSpan min, TimeSpan max)
+        {
+            if (min > max)
+                throw new ArgumentException($"Expected min <= max, but actually min = {min}, max = {max}.");
+            return Max(Min(time, max), min);
+        }
+
         /// <summary>
         /// Returns <paramref name="baseValue"/> reduced by the minimum of <paramref name="absoluteValueToCut"/> and <paramref name="relativeValueToCut"/> multiplied by <paramref name="baseValue"/>.
         /// </summary>
