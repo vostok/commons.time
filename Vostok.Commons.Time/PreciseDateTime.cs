@@ -45,6 +45,14 @@ namespace Vostok.Commons.Time
             }
         }
 
+        public static TimeSpan OffsetFromUtc
+        {
+            get
+            {
+                return offsetFromUtcHolder.Value;
+            }
+        }
+
         private static Func<DateTimeOffset> SelectTimestampProvider()
         {
             if (WinApiProvider.IsSupported)

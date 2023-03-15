@@ -1,3 +1,7 @@
+## 0.1.4 (15-03-2023):
+
+Added PreciseDateTime.OffsetFromUtc property.
+
 ## 0.1.3 (28-09-2022):
 
 Added TimeSpan.Clamp extension.
