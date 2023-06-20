@@ -38,13 +38,13 @@ namespace Vostok.Commons.Time.Tests
 
             while (watch.Elapsed < 10.Seconds())
             {
+                Thread.Sleep(1);
+
                 var current = PreciseDateTime.UtcNow;
 
                 current.Should().BeAfter(previous);
 
                 previous = current;
-
-                Thread.Sleep(1);
             }
         }
     }
