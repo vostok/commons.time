@@ -7,5 +7,6 @@ namespace Vostok.Commons.Time.TimeProviders
     internal interface IDateTimeOffsetProvider
     {
         DateTimeOffset Now { get; }
+        DateTimeOffset UtcNow { get; }
     }
 }

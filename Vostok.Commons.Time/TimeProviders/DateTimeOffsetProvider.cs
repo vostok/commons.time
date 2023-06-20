@@ -9,5 +9,6 @@ namespace Vostok.Commons.Time.TimeProviders
         public static readonly DateTimeOffsetProvider Instance = new DateTimeOffsetProvider();
 
         public DateTimeOffset Now => DateTimeOffset.Now;
+        public DateTimeOffset UtcNow => DateTimeOffset.UtcNow;
     }
 }
