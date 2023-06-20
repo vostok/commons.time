@@ -1,3 +1,7 @@
+## 0.1.6 (20-06-2023):
+
+Added UtcNow to IDateTimeOffsetProvider
+
 ## 0.1.4 (15-03-2023):
 
 Added PreciseDateTime.OffsetFromUtc property.
