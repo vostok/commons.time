@@ -38,8 +38,9 @@ namespace Vostok.Commons.Time
         public static DateTime Now
         {
             get
-            {
-                var tickCount = Environment.TickCount;
+            {                
+                // ReSharper disable once RedundantNameQualifier because of ambiguous invocations in projects references vostok.environment and system.environment simultaneously.
+                var tickCount = System.Environment.TickCount;
                 if (tickCount == lastTicks)
                 {
                     return lastDateTime;
