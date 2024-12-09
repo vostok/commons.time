@@ -1,3 +1,7 @@
+## 0.1.5 (09-12-2024): 
+
+Bump NuGet deps versions
+
 ## 0.1.4 (15-03-2023):
 
 Added PreciseDateTime.OffsetFromUtc property.
