@@ -12,6 +12,16 @@ notests *default:
 
   install:
     - Vostok.Commons.Time/bin/Release/netstandard2.0/Vostok.Commons.Time.dll
+    - groups:
+        - target-framework: "netstandard2.0"
+          libraries:
+            - Vostok.Commons.Time/bin/Release/netstandard2.0/Vostok.Commons.Time.dll
+        - target-framework: "net6.0"
+          libraries:
+            - Vostok.Commons.Time/bin/Release/net6.0/Vostok.Commons.Time.dll
+        - target-framework: "net8.0"
+          libraries:
+            - Vostok.Commons.Time/bin/Release/net8.0/Vostok.Commons.Time.dll
 
   deps:
     - vostok.devtools
@@ -20,6 +30,21 @@ full-build > notests:
   build:
     target: Vostok.Commons.Time.sln
     configuration: Release
+    tool:
+      name: dotnet
+
+  install:
+    - Vostok.Commons.Time/bin/Release/netstandard2.0/Vostok.Commons.Time.dll
+    - groups:
+        - target-framework: "netstandard2.0"
+          libraries:
+            - Vostok.Commons.Time/bin/Release/netstandard2.0/Vostok.Commons.Time.dll
+        - target-framework: "net6.0"
+          libraries:
+            - Vostok.Commons.Time/bin/Release/net6.0/Vostok.Commons.Time.dll
+        - target-framework: "net8.0"
+          libraries:
+            - Vostok.Commons.Time/bin/Release/net8
 
   deps:
     - -vostok.devtools
