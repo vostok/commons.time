@@ -44,7 +44,7 @@ full-build > notests:
             - Vostok.Commons.Time/bin/Release/net6.0/Vostok.Commons.Time.dll
         - target-framework: "net8.0"
           libraries:
-            - Vostok.Commons.Time/bin/Release/net8
+            - Vostok.Commons.Time/bin/Release/net8.0/Vostok.Commons.Time.dll
 
   deps:
     - -vostok.devtools
